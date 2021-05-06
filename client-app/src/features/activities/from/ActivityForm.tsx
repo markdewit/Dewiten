@@ -1,14 +1,13 @@
+import { observer } from 'mobx-react-lite';
 import React, { ChangeEvent, useState } from 'react';
 import { Button, Form, Segment } from 'semantic-ui-react';
-import { Activity } from '../../../app/models/activity';
+import { useStore } from '../../../app/stores/store';
 
-interface Props {
-      activity: Activity | undefined;
-      closeForm: () => void;
-      createOrEdit:(activity: Activity) => void;
-}
 
-export default function ActivityFrom({activity : selectedActivity,closeForm,createOrEdit}: Props){
+export default observer( function ActivityFrom(){
+const {activityStore} = useStore();
+const {selectedActivity, closeForm, createActivity, updateActivity, loading } = activityStore
+
 
 const intialState = selectedActivity ?? {
       id: '',
@@ -22,7 +21,7 @@ const intialState = selectedActivity ?? {
 const [activity, setActivity] = useState(intialState)
 
 function handlesubmit(){
-      createOrEdit(activity);
+      activity.id ? updateActivity(activity) : createActivity(activity)
 }
 
 function handleInputChange(event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>){
@@ -36,12 +35,12 @@ function handleInputChange(event: ChangeEvent<HTMLInputElement | HTMLTextAreaEle
                         <Form.Input placeholder='Title' value={activity.title} name='title' onChange={handleInputChange}/>
                         <Form.TextArea placeholder='Description'value={activity.description} name='description' onChange={handleInputChange}/>
                         <Form.Input placeholder='Category'value={activity.category} name='category' onChange={handleInputChange}/>
-                        <Form.Input placeholder='Date'value={activity.date} name='date' onChange={handleInputChange}/>
+                        <Form.Input type='date' placeholder='Date'value={activity.date} name='date' onChange={handleInputChange}/>
                         <Form.Input placeholder='City'value={activity.city} name='city' onChange={handleInputChange}/>
                         <Form.Input placeholder='Venue'value={activity.venue} name='venue' onChange={handleInputChange}/>
                         <Button onClick={closeForm} floated='right'  type='button' content='Cancel'/>
-                        <Button floated='right' positive type='submit' content='submit'/>                  
+                        <Button loading={loading} floated='right' positive type='submit' content='submit'/>                  
                   </Form>
             </Segment>
       )
-}
+})
