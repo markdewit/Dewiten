@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import React, { ChangeEvent, useEffect, useState } from 'react';
-import { Link, useHistory, useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { Button, Form, Segment } from 'semantic-ui-react';
 import LoadingComponent from '../../../app/layout/loadingComponent';
 import { useStore } from '../../../app/stores/store';
@@ -54,7 +54,7 @@ if(loadingInitial) return <LoadingComponent  content='Loading activity...'/>
                         <Form.Input placeholder='City'value={activity.city} name='city' onChange={handleInputChange}/>
                         <Form.Input placeholder='Venue'value={activity.venue} name='venue' onChange={handleInputChange}/>
                         <Button floated='right'  type='button' content='Cancel'/>
-                        <Button as={Link} to='/activities' loading={loading} floated='right' positive type='submit' content='submit'/>                  
+                        <Button onSubmit='handlesubmit()' loading={loading} floated='right' positive type='submit' content='submit'/>                  
                   </Form>
             </Segment>
       )
