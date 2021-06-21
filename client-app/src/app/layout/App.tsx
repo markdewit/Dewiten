@@ -5,7 +5,7 @@ import ActivityDashboard from '../../features/activities/dashboard/ActivityDashb
 import { observer } from 'mobx-react-lite';
 import { Route } from 'react-router';
 import HomePage from '../../features/home/homepage';
-import ActivityForm from '../../features/activities/from/ActivityForm';
+import ActivityForm from '../../features/activities/form/ActivityForm';
 import Activitydetails from '../../features/activities/details/ActivityDetails';
 import { Switch, useLocation } from 'react-router-dom';
 import TestErrors from '../../features/errors/TestError';
